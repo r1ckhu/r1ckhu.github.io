@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.4.0">
+<meta itemprop="name" content="通用单步调试指南">
+<meta itemprop="description" content="<p>111单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。</p>">
+<meta itemprop="image" content="https://gitee.com/r1ck/picture-storage/raw/master/next.png"/>
+
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -20,12 +24,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。">
+<meta name="description" content="111单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="通用单步调试指南">
 <meta property="og:url" content="http://example.com/2021/12/22/%E9%80%9A%E7%94%A8%E5%8D%95%E6%AD%A5%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/index.html">
 <meta property="og:site_name" content="Rick&#39;s Blog">
-<meta property="og:description" content="单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。">
+<meta property="og:description" content="111单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/r1ck/picture-storage/raw/master/01_Debug_Guide/menu.png">
 <meta property="og:image" content="https://gitee.com/r1ck/picture-storage/raw/master/01_Debug_Guide/breakpoint-create.png">
@@ -37,7 +41,7 @@
 <meta property="og:image" content="https://gitee.com/r1ck/picture-storage/raw/master/01_Debug_Guide/stepout.png">
 <meta property="og:image" content="https://gitee.com/r1ck/picture-storage/raw/master/01_Debug_Guide/continue.png">
 <meta property="article:published_time" content="2021-12-22T13:47:45.529Z">
-<meta property="article:modified_time" content="2021-12-24T13:07:43.763Z">
+<meta property="article:modified_time" content="2021-12-24T13:59:11.098Z">
 <meta property="article:author" content="Rick Hu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/r1ck/picture-storage/raw/master/01_Debug_Guide/menu.png">
@@ -193,10 +197,7 @@
 
     <span itemprop="page" hidden>
       <meta itemprop="name" content="通用单步调试指南">
-      <meta itemprop="description" content="<p>单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。</p>
-<meta itemprop="name" content="通用单步调试指南">
-<meta itemprop="description" content="本文旨在大致介绍单步调试所包含的内容和操作方法">
-<meta itemprop="image" content="https://gitee.com/r1ck/picture-storage/raw/master/next.png"/>">
+      <meta itemprop="description" content="<p>111单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。</p>">
       <meta itemprop="image" content="https://gitee.com/r1ck/picture-storage/raw/master/next.png"/>
     </span>
 
@@ -229,15 +230,12 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-12-24 21:07:43" itemprop="dateModified" datetime="2021-12-24T21:07:43+08:00">2021-12-24</time>
+        <time title="Modified: 2021-12-24 21:59:11" itemprop="dateModified" datetime="2021-12-24T21:59:11+08:00">2021-12-24</time>
       </span>
 
   <span hidden itemprop="page">
       <meta itemprop="name" content="通用单步调试指南">
-      <meta itemprop="description" content="<p>单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。</p>
-<meta itemprop="name" content="通用单步调试指南">
-<meta itemprop="description" content="本文旨在大致介绍单步调试所包含的内容和操作方法">
-<meta itemprop="image" content="https://gitee.com/r1ck/picture-storage/raw/master/next.png"/>">
+      <meta itemprop="description" content="<p>111单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。</p>">
       <meta itemprop="image" content="https://gitee.com/r1ck/picture-storage/raw/master/next.png"/>
 </span>
 </div>
@@ -249,10 +247,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。</p>
-<meta itemprop="name" content="通用单步调试指南">
-<meta itemprop="description" content="本文旨在大致介绍单步调试所包含的内容和操作方法">
-<meta itemprop="image" content="https://gitee.com/r1ck/picture-storage/raw/master/next.png"/>
+        <p>111单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。</p>
 <span id="more"></span>
 
 
