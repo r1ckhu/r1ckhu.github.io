@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>通用单步调试指南 | Rick's blog</title><meta name="author" content="Rick Hu"><meta name="copyright" content="Rick Hu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通用单步调试指南">
+<meta property="og:url" content="http://example.com/2022/01/05/%E9%80%9A%E7%94%A8%E5%8D%95%E6%AD%A5%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="Rick&#39;s blog">
+<meta property="og:description" content="单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/avatar.jpg">
+<meta property="article:published_time" content="2022-01-05T13:21:00.000Z">
+<meta property="article:modified_time" content="2023-05-13T16:19:43.977Z">
+<meta property="article:author" content="Rick Hu">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/01/05/%E9%80%9A%E7%94%A8%E5%8D%95%E6%AD%A5%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '通用单步调试指南',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-14 00:19:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/top_img.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Rick's blog"><span class="site-name">Rick's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">通用单步调试指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-01-05T13:21:00.000Z" title="Created 2022-01-05 21:21:00">2022-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-05-13T16:19:43.977Z" title="Updated 2023-05-14 00:19:43">2023-05-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="通用单步调试指南"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>单步调试是调试程序十分有用的方法，你可以逐行执行程序并查看变量的值。然而这一高效的方法并非在每个学校的编程课上都会教学。尤其是对于非计算机专业的学生，单步调试更可能闻所未闻，大大增加了调试程序的难度。本文旨在大致介绍单步调试所包含的内容和操作方法。</p>
+<span id="more"></span>
+
+
+<h2 id="一些提示与准备"><a href="#一些提示与准备" class="headerlink" title="一些提示与准备"></a>一些提示与准备</h2><div class="note info flat">提示：在本文中提到的开发环境一词可以理解为你编程使用的软件</div>
+
+<p>在某些开发环境（如CodeBlock）下，尽管你可以在不创建项目的情况下编译代码，但是你仍然需要创建项目才能使用调试工具。</p>
+<p>在大多数开发环境下，你可以点击最上方的<code>调试 (Debug)</code>选项卡（可能会是不同的名字）上看到本文接下来会提到的操作对应的按键。熟练掌握快捷键会大幅度提高操作的效率。<br><img src="https://z4a.net/images/2023/05/14/menu.png" width="70%"/></p>
+<center style="font-size:14px;color:#C0C0C0">图中从左向右分别展示了Visual Studio 2019, Visual Studio Code 与 Codeblock的菜单</center> <br/>
+
+
+<p>单步调试的操作在绝大多数的开发环境下都大同小异，且与使用的编程语言无关。因此本指南使用Visual Studio 2019开发环境，C++语言作为演示。</p>
+<h2 id="断点-Breakpoint"><a href="#断点-Breakpoint" class="headerlink" title="断点 (Breakpoint)"></a>断点 (Breakpoint)</h2><p>顾名思义，断点可以理解为是一个可以打在代码某一行上的点。在调试模式下，当程序运行到断点所在行时，程序就会暂停。</p>
+<p>如下图所示，断点可以通过点击代码行数附近的位置来创建。<br><img src="https://z4a.net/images/2023/05/14/breakpoint-create.png" width="70%"/></p>
+<center style="font-size:14px;color:#C0C0C0">图中从左向右分别展示了在Visual Studio 2019, Visual Studio Code 与 Codeblock中创建断点的方法</center> <br/>
+
+<p>在调试模式下，当程序运行到断点所在行时，程序就会暂停。此时，你可以寻找一个显示变量的窗口，并在其中查看局部变量的值。你也可以在<code>监视窗口</code>你可以手动输入变量名，并查看它的值。在调试过程中，你可以通过这个来发现哪些变量的值与你的想法不符。假如你没有找到这个窗口，你可以尝试搜索关键词<code>你使用的开发环境</code>，<code>监视窗口</code>，<code>单步调试中查看变量的值</code>等。</p>
+<img src="https://z4a.net/images/2023/05/14/variable.png" width="70%"/>
+<center style="font-size:14px;color:#C0C0C0">你可以在图中的黄色区域查看变量的值</center> <br/>
+<img src="https://z4a.net/images/2023/05/14/watch.gif" width="70%">
+<center style="font-size:14px;color:#C0C0C0">图中展示了如何在监视窗口手动查看变量的值</center> <br/>
+
+
+<h2 id="逐语句与逐过程-Step-Into-amp-Step-Over"><a href="#逐语句与逐过程-Step-Into-amp-Step-Over" class="headerlink" title="逐语句与逐过程 (Step Into &amp; Step Over)"></a>逐语句与逐过程 (Step Into &amp; Step Over)</h2><div class="note info flat">提示：假如你还没有学习编程中有关函数的知识，你可以暂时将逐语句与逐过程看成是一样的</div>
+<div class="note info flat">在不同开发环境下，逐语句和逐过程的表达方式可能不同，如：在Codeblock中逐过程 (Step Over) 对应的表达为Next Line</div>
+
+<p><code>逐语句</code>和<code>逐过程</code>的作用都可视作为：运行黄色箭头所在行，并将黄色箭头下移。</p>
+<img src="https://z4a.net/images/2023/05/14/movedown.png" width="70%"/>
+<center style="font-size:14px;color:#C0C0C0">如图所示，在按下"逐语句"或"逐过程"对应的按键后，左边的黄色箭头从第18行移动到了第19行，且下方变量窗口中n的值发生了变化，这是由于赋值语句（第18行）被执行了</center> <br/>
+
+
+<p>让我们再次按下<code>逐语句</code>或<code>逐过程</code>对应的按键，可以发现在本行的黄色箭头消失了。这是因为第19行是输入语句，当我们转到控制台窗口输入数据之后，黄色箭头将会再次出现。</p>
+<p><img src="https://z4a.net/images/2023/05/14/arrow_disappear_samll.png" width="70%"/><center style="font-size:14px;color:#C0C0C0">如图所示，黄色箭头消失了</center> <br/></p>
+<p>那么<code>逐语句</code>和<code>逐过程</code>的区别是什么呢？当我们运行到第21行时就可以发现，若使用<code>逐语句(Step Into)</code>则会进入函数体，而使用<code>逐过程(Step Over)</code>则不会进入。</p>
+<div class="note info flat">提示：绝大部分的开发环境在使用"逐语句"操作时不会进入库函数体，如：输入，输出函数。但不排除某些开发环境会这么做，遇到这种情况只需不断按"逐过程"直到函数执行完成后即可。</div>
+
+<img src="https://z4a.net/images/2023/05/14/step.png" width="70%"/>
+<center style="font-size:14px;color:#C0C0C0">左图中在21行执行逐语句后进入了函数体func01；右图中则没有</center> <br/>
+
+
+<h2 id="跳出-Step-Out"><a href="#跳出-Step-Out" class="headerlink" title="跳出 (Step Out)"></a>跳出 (Step Out)</h2><p>在调试模式下，再次打开Visual Studio的调试选项卡，我们可以发现有了更多的选项，而<code>跳出</code>是其中之一。在检查完一个函数后，<code>跳出</code>可以帮助我们便捷地跳出函数体，而不需要手动运行完整个函数。若我们在上一步进入了函数体内部，则可以通过<code>跳出</code>来回到第22行。<br><img src="https://z4a.net/images/2023/05/14/stepout.png" width="70%"/></p>
+<center style="font-size:14px;color:#C0C0C0">在左图情景中按下"跳出"所对应的按键就会跳出函数体，来到22行</center> <br/>
+
+
+<h2 id="继续-Continue"><a href="#继续-Continue" class="headerlink" title="继续 (Continue)"></a>继续 (Continue)</h2><p>我们也可以找到<code>继续</code>选项。可以猜到，当我们按下<code>继续</code>选项后，程序就会继续运行直到遇到下一个断点。假如没有遇到断点，那么程序就会运行完成。<br><img src="https://z4a.net/images/2023/05/14/continue.png" width="70%"/></p>
+<center style="font-size:14px;color:#C0C0C0">如图，程序中有两个断点，分别在func01与func02函数体中。在func01函数体中按下"继续"对应的按键，程序就会继续运行，直到遇到在func02函数体中的断点。假如此时再次按下"继续"，则程序会运行结束。</center> <br/>
+
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>以上就是单步调试的常用操作。单步调试十分重要也十分有用，请务必多多练习，直到熟练掌握。<br>许多开发环境还配备了一些特殊功能，如条件断点，设置断点命中次数等。你可以通过在搜索引擎中搜索关键词<code>你使用的环境 单步调试</code>来更好地了解自己使用的工具。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">Rick Hu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2022/01/05/%E9%80%9A%E7%94%A8%E5%8D%95%E6%AD%A5%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/">http://example.com/2022/01/05/通用单步调试指南/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a></div><div class="post_share"><div class="social-share" data-image="/images/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Rick Hu</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/r1ckhu" target="_blank" title="Github"><i class="fab fa-github" style="color: #2E3440;"></i></a><a class="social-icon" href="mailto:rickhu123@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #2E3440;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%8F%90%E7%A4%BA%E4%B8%8E%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">一些提示与准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%AD%E7%82%B9-Breakpoint"><span class="toc-number">2.</span> <span class="toc-text">断点 (Breakpoint)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%90%E8%AF%AD%E5%8F%A5%E4%B8%8E%E9%80%90%E8%BF%87%E7%A8%8B-Step-Into-amp-Step-Over"><span class="toc-number">3.</span> <span class="toc-text">逐语句与逐过程 (Step Into &amp; Step Over)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%B3%E5%87%BA-Step-Out"><span class="toc-number">4.</span> <span class="toc-text">跳出 (Step Out)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E7%BB%AD-Continue"><span class="toc-number">5.</span> <span class="toc-text">继续 (Continue)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">6.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/01/05/%E9%80%9A%E7%94%A8%E5%8D%95%E6%AD%A5%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/" title="通用单步调试指南">通用单步调试指南</a><time datetime="2022-01-05T13:21:00.000Z" title="Created 2022-01-05 21:21:00">2022-01-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Rick Hu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
